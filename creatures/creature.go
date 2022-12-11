@@ -11,6 +11,11 @@ import (
 * CREATURE STRUCTURE
  */
 type Creature struct {
+	// shorterm memory
+	// longterm memory
+	// objectives memory
+	// maslow memory
+	// str int agi memory
 	name       string
 	age        int
 	sex        byte

@@ -1,17 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"strings"
-
-	"github.com/luanrivello/conquest/display"
+	"github.com/luanrivello/conquest/tui"
 )
 
 func main() {
-	bars := strings.Repeat("✦", 20)
-	fmt.Println(bars + " START " + bars)
 
-	display.Menu()
+	tui.MainMenu()
 
-	fmt.Println(bars + "  END  " + bars)
 }

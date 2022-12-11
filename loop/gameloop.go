@@ -1,4 +1,4 @@
-package display
+package loop
 
 import (
 	"fmt"
@@ -7,6 +7,7 @@ import (
 	"github.com/luanrivello/conquest/creatures"
 	"github.com/luanrivello/conquest/dice"
 	"github.com/luanrivello/conquest/spacetime"
+	"github.com/luanrivello/conquest/tui/colors"
 )
 
 func Gameloop() {
@@ -20,37 +21,33 @@ func Gameloop() {
 	snake := creatures.NewCreature("Snake", 'X')
 
 	planet.Place(&adam)
-	//planet.Place(&eve)
-	//planet.Place(&snake)
+	planet.Place(&eve)
+	planet.Place(&snake)
 
 	for {
 
 		fmt.Println("\033[H\033[2J")
-		fmt.Printf("%s✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦\n", colorBlue)
-		fmt.Printf("%sDate:   %d\n", colorYellow, spaceCalendar)
-		fmt.Printf("%sSystem: %s\n", colorPurple, system.GetName())
-		fmt.Printf("%sSun:    %s\n", colorRed, sun.GetName())
-		fmt.Printf("%sPlanet: %s\n", colorGreen, planet.GetName())
-		fmt.Printf("%s✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦\n", colorBlue)
-		fmt.Println(colorReset)
+		fmt.Printf("%s✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦\n", colors.BLUE)
+		fmt.Printf("%sDate:   %d\n", colors.YELLOW, spaceCalendar)
+		fmt.Printf("%sSystem: %s\n", colors.PURPLE, system.GetName())
+		fmt.Printf("%sSun:    %s\n", colors.RED, sun.GetName())
+		fmt.Printf("%sPlanet: %s\n", colors.GREEN, planet.GetName())
+		fmt.Printf("%s✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦\n", colors.BLUE)
+		fmt.Println(colors.Reset)
 
 		x := -1
 		y := -1
-		fmt.Printf("%c\n", '🛩')
+		fmt.Printf("%c\n", '>')
 		if dice.Roll(2) == 0 {
-			x = dice.Roll(3)
-			y = dice.Roll(3)
+			x = dice.Roll(planet.GetLongitude())
+			y = dice.Roll(planet.GetSize())
 			planet.Bomb(x, y)
 			fmt.Printf("%c\n", '💣')
 		} else {
 			fmt.Println()
 		}
-		fmt.Printf("%s%c %s\n", colorRed, '🌎', colorReset)
+		fmt.Printf("%s%c %s\n", colors.RED, '🌎', colors.Reset)
 		fmt.Println()
-
-		adam.Move()
-		eve.Move()
-		snake.Move()
 
 		fmt.Println()
 
@@ -61,13 +58,13 @@ func Gameloop() {
 			//fmt.Printf("%d", i+1)
 			if i < planet.GetLongitude()/2 {
 				for space := 0; space < planet.GetLongitude()/2-i; space++ {
-					fmt.Print("  ")
+					//fmt.Print("  ")
 				}
 			} else if i == planet.GetLongitude()/2 {
-				fmt.Print("  ")
+				//fmt.Print("  ")
 			} else {
 				for space := 0; space < -planet.GetLongitude()/2+i; space++ {
-					fmt.Print("  ")
+					//fmt.Print("  ")
 				}
 			}
 			//for space := 0; space < -planet.GetSize()+i*2+8; space++ {
@@ -79,9 +76,9 @@ func Gameloop() {
 
 				var aux = ""
 				if i == x && j == y {
-					fmt.Print(colorRed)
+					fmt.Print(colors.RED)
 				} else if len(tile.String()) != 0 {
-					fmt.Print(colorGreen)
+					fmt.Print(colors.GREEN)
 
 				}
 
@@ -97,12 +94,16 @@ func Gameloop() {
 				}
 
 				aux += "]"
-				fmt.Print(aux + colorReset)
+				fmt.Print(aux + colors.Reset)
 			}
 			fmt.Println()
 		}
 
 		fmt.Println()
+
+		adam.Move()
+		eve.Move()
+		snake.Move()
 
 		// wait 1 second before next iteration of the loop
 		spaceCalendar += 1

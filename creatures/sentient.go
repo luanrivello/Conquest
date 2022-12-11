@@ -7,11 +7,10 @@ import (
 
 /*
 * SENTIENT CREATURE STRUCTURE
- */
+*/
 type Sentient struct {
 	Creature
 
-	mental      int
 	personality *personality.Personality
 }
 
@@ -21,7 +20,6 @@ func NewSentient(givenName string, birthSex byte) Sentient {
 	return Sentient{
 		Creature:    NewCreature(givenName, birthSex),
 		personality: isfp,
-		mental:      0,
 	}
 }
 
@@ -39,13 +37,13 @@ func (sentient *Sentient) Move() {
 
 func (sentient Sentient) Rune() rune {
 	if !sentient.isAlive {
-		return '💀'
+		return 'X'
 	} else if sentient.sex == 'M' {
-		return '💙'
+		return 'M'
 	} else if sentient.sex == 'F' {
-		return '💜'
+		return 'F'
 	} else {
-		return '💛'
+		return '?'
 	}
 }
 
