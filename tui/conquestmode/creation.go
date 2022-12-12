@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/luanrivello/conquest/spacetime"
 	"github.com/luanrivello/conquest/tui/colors"
 )
 
@@ -57,15 +58,17 @@ func (m creationModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 		case "enter", " ", "l":
-			//* Choises
+			//* Choices
 			switch m.cursor {
 			case 0:
-				//loop.Gameloop()
+				//TODO: set name
 
 			case 1:
-				//loop.Gameloop()
+				//TODO: set name
 
 			case 2:
+				board := spacetime.NewGalaxy()
+				return GetConquestModel(m, board), nil
 
 			default:
 				return m.previous, nil
@@ -85,7 +88,7 @@ func (m creationModel) View() string {
 	result := defaultColor
 	result += "Conquest Mode\n\n"
 
-	//* Print Choises
+	//* Print Choices
 	for i, choice := range m.choices {
 
 		var cursor string

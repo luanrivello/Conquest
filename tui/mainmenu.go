@@ -49,7 +49,6 @@ func (m mainModel) Init() tea.Cmd {
 // * Actions * //
 func (m mainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-
 	case tea.KeyMsg:
 		//* Keypress
 		switch msg.String() {
@@ -67,22 +66,25 @@ func (m mainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 		case "enter", " ", "l":
-			//* CHOICES
+			//* Choices
 			switch m.cursor {
+			//* Conquest
 			case 0:
 				return conquestmode.GetCreationModel(m), nil
 
+			//* Explore
 			case 1:
 				return conquestmode.GetCreationModel(m), nil
 
+			//* Encyclopedia
 			case 2:
 				return conquestmode.GetCreationModel(m), nil
 
+			//* Dev
 			case 3:
 				loop.Gameloop()
-				//TODO: Return Game mainModel
-				//return conquestmode.GetCreationModel(m), nil
 
+			//* Exit
 			default:
 				fmt.Println("Exiting...")
 				return m, tea.Quit
@@ -99,7 +101,7 @@ func (m mainModel) View() string {
 	result := defaultColor
 	result += "Galaxy Conquest\n\n"
 
-	//* Print Choises
+	//* Print Choices
 	for i, choice := range m.choices {
 
 		var cursor string

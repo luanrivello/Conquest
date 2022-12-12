@@ -1,10 +1,7 @@
 package conquestmode
 
 import (
-	"fmt"
-
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/luanrivello/conquest/loop"
 	"github.com/luanrivello/conquest/spacetime"
 	"github.com/luanrivello/conquest/tui/colors"
 )
@@ -28,7 +25,6 @@ type conquestModel struct {
 func initConquest(prev tea.Model, gal *spacetime.Galaxy) conquestModel {
 	return conquestModel{
 		galaxy:   gal,
-		choices:  []string{"Galaxy Name", "Planet Name", "Next", "Back"},
 		previous: prev,
 	}
 }
@@ -42,34 +38,21 @@ func (m conquestModel) Init() tea.Cmd {
 func (m conquestModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 
-	// Keypress
 	case tea.KeyMsg:
-		//Which Key
+		//* Keypress
 		switch msg.String() {
 		case "ctrl+c", "q":
 			return m, tea.Quit
+
 		case "up", "k":
 			if m.cursor > 0 {
 				m.cursor--
 			}
 
 		case "down", "j":
-			if m.cursor < len(m.choices)-1 {
-				m.cursor++
-			}
 
 		case "enter", " ", "l":
-			//Choises
-			switch m.cursor {
-			case 0:
-				loop.Gameloop()
-			case 1:
-				loop.Gameloop()
-			case 2:
-				loop.Gameloop()
-			default:
-				return m.previous, nil
-			}
+			//Choices
 
 		}
 
@@ -83,29 +66,53 @@ func (m conquestModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m conquestModel) View() string {
 	//* Header
 	system := m.galaxy.GetSystem()
+	sun := system.GetSun()
+	planet := system.GetPlanet()
 	result := defaultColor
-	result += "Conquest Mode\n"
 	result += colors.BLUE + "✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦\n"
 	result += colors.YELLOW + "Date:   " + "0" + "\n"
 	result += colors.PURPLE + "System: " + system.GetName() + "\n"
-	result += colors.RED + "Sun:    " + system.GetSun().GetName() + "\n"
-	result += colors.GREEN + "Planet: " + system.GetPlanet().GetName() + "\n"
+	result += colors.RED + "Sun:    " + sun.GetName() + "\n"
+	result += colors.GREEN + "Planet: " + planet.GetName() + "\n"
+	result += colors.BLUE + "✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦\n"
+	result += colors.Reset
 
-	//* Print Choises
-	for i, choice := range m.choices {
+	result += colors.CYAN + ">\n"
+	result += colors.RED + "↧\n"
+	result += colors.GREEN + "O\n\n"
+	result += colors.Reset
 
-		var cursor string
-		if m.cursor == i {
-			cursor = colors.GREEN + "    "
-		} else {
-			cursor = "   "
+	tiles := planet.GetTiles()
+
+	for _, tileLine := range tiles {
+
+		for _, tile := range tileLine {
+
+			var aux = ""
+			if len(tile.String()) != 0 {
+				result += colors.GREEN
+			}
+
+			aux += "["
+
+			//stack := tile.String()
+			//aux += stack
+			stack := ""
+
+			// Fill aux string untill it has lenght 9
+			for len(aux) < 1+len(stack)/3 {
+				aux += " "
+			}
+
+			aux += "]"
+			result += aux + colors.Reset
 		}
-
-		result += fmt.Sprintf("%s %s%s\n", cursor, choice, defaultColor)
+		result += "\n"
 	}
 
-	//* Footer
-	result += "\nfooter\n"
+	result += "\n"
 
+	//* Footer
+	result += "\n| footer |\n"
 	return result
 }
