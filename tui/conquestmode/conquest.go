@@ -2,70 +2,65 @@ package conquestmode
 
 import (
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/luanrivello/conquest/spacetime"
+	"github.com/luanrivello/conquest/board"
 	"github.com/luanrivello/conquest/tui/colors"
 )
 
 // * Get Model * //
-func GetConquestModel(prev tea.Model, gal *spacetime.Galaxy) conquestModel {
-	return initConquest(prev, gal)
+func GetConquestModel(board *board.Board) conquestModel {
+	return initConquest(board)
 }
 
 // * Model * //
 type conquestModel struct {
-	galaxy   *spacetime.Galaxy
+	board    *board.Board
 	choices  []string
 	cursor   int
 	loading  bool
 	typing   bool
 	previous tea.Model
+	err      error
 }
 
 // * Constructor * //
-func initConquest(prev tea.Model, gal *spacetime.Galaxy) conquestModel {
+func initConquest(board *board.Board) conquestModel {
 	return conquestModel{
-		galaxy:   gal,
-		previous: prev,
+		board: board,
 	}
 }
 
 // * Startup * //
 func (m conquestModel) Init() tea.Cmd {
-	return nil
+	go m.board.Run()
+	return ticktack()
 }
 
 // * Actions * //
 func (m conquestModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-
 	case tea.KeyMsg:
 		//* Keypress
 		switch msg.String() {
 		case "ctrl+c", "q":
 			return m, tea.Quit
 
-		case "up", "k":
-			if m.cursor > 0 {
-				m.cursor--
-			}
-
-		case "down", "j":
-
 		case "enter", " ", "l":
-			//Choices
 
 		}
+
+	case TickMsg:
+		return m, ticktack()
 
 	}
 
 	return m, nil
-
 }
 
 // * Render View * //
 func (m conquestModel) View() string {
 	//* Header
-	system := m.galaxy.GetSystem()
+	galaxy := m.board.GetGalaxy()
+	system := galaxy.GetSystem()
 	sun := system.GetSun()
 	planet := system.GetPlanet()
 	result := defaultColor
@@ -82,37 +77,42 @@ func (m conquestModel) View() string {
 	result += colors.GREEN + "O\n\n"
 	result += colors.Reset
 
+	// * Body
 	tiles := planet.GetTiles()
-
 	for _, tileLine := range tiles {
 
 		for _, tile := range tileLine {
 
 			var aux = ""
+			aux += "["
 			if len(tile.String()) != 0 {
 				result += colors.GREEN
+				aux += tile.String()
+			} else {
+				result += colors.Reset
+				aux += "   "
 			}
-
-			aux += "["
 
 			//stack := tile.String()
 			//aux += stack
-			stack := ""
+			//stack := ""
 
 			// Fill aux string untill it has lenght 9
-			for len(aux) < 1+len(stack)/3 {
-				aux += " "
-			}
+			//for len(aux) < 1+len(stack)/3 {
+			//	aux += " "
+			//}
 
+			aux += colors.Reset
 			aux += "]"
-			result += aux + colors.Reset
+			result += aux
 		}
 		result += "\n"
 	}
 
 	result += "\n"
+	result += colors.Reset
 
 	//* Footer
-	result += "\n| footer |\n"
+	result += "\n|| footer || footer || footer || footer ||\n"
 	return result
 }

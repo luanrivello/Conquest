@@ -1,7 +1,6 @@
 package spacetime
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/luanrivello/conquest/dice"
@@ -202,7 +201,7 @@ Colum = |
 //}
 */
 
-// GET
+// * GET * //
 func (planet *Planet) GetName() string {
 	return planet.name
 }
@@ -215,10 +214,10 @@ func (planet *Planet) GetLongitude() int {
 	return planet.longitude
 }
 
-// place a sentient in a random position of the array
+// * Place a sentient in a random position of the array * //
 func (planet *Planet) Place(thing PlaceInterface) {
-	x := dice.Roll(3)
-	y := dice.Roll(3)
+	x := dice.Roll(5)
+	y := dice.Roll(5)
 
 	thing.Placed(planet, &planet.tiles[x][y])
 
@@ -228,7 +227,6 @@ func (planet *Planet) Place(thing PlaceInterface) {
 func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) {
 
 	if relativeX == 0 && relativeY == 0 {
-		fmt.Print("Waiting ")
 		return
 	}
 
@@ -237,21 +235,17 @@ func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) {
 
 	//⇳
 	if relativeY == 1 {
-		fmt.Print("UP ")
 		targetTile = targetTile.up
 
 	} else if relativeY == -1 {
-		fmt.Print("DOWN ")
 		targetTile = targetTile.down
 	}
 
 	//⬄
 	if relativeX == 1 {
-		fmt.Print("RIGHT ")
 		targetTile = targetTile.right
 
 	} else if relativeX == -1 {
-		fmt.Print("LEFT ")
 		targetTile = targetTile.left
 	}
 

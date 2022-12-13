@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/luanrivello/conquest/spacetime"
 	"github.com/luanrivello/conquest/tui/colors"
 )
 
@@ -22,6 +21,7 @@ type creationModel struct {
 	loading  bool
 	typing   bool
 	previous tea.Model
+	err      error
 }
 
 // * Constructor * //
@@ -34,7 +34,7 @@ func initCreation(prev tea.Model) creationModel {
 
 // * Startup * //
 func (m creationModel) Init() tea.Cmd {
-	return nil
+	return ticktack()
 }
 
 // * Actions * //
@@ -67,13 +67,12 @@ func (m creationModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				//TODO: set name
 
 			case 2:
-				board := spacetime.NewGalaxy()
-				return GetConquestModel(m, board), nil
+				nextModel := GetLoadingModel(m.previous)
+				return nextModel, nextModel.Init()
 
 			default:
 				return m.previous, nil
 			}
-
 		}
 
 	}

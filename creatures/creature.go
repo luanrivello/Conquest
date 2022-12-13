@@ -88,10 +88,10 @@ func (p *Creature) Exploded() {
 
 func (creature *Creature) Rune() rune {
 	if !creature.isAlive {
-		return '💀'
+		return 'X'
 	}
 
-	return '🐍'
+	return '?'
 }
 
 /*

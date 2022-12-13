@@ -26,6 +26,9 @@ func MainMenu() {
 		log.Fatal(err)
 		os.Exit(1)
 	}
+
+	//* Clear Terminal
+	fmt.Print("\033[H\033[2J")
 }
 
 // * Model * //
