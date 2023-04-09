@@ -4,12 +4,13 @@ import (
 	"time"
 
 	"conquest/creatures"
+	"conquest/eventlog"
 	"conquest/spacetime"
 )
 
 type Board struct {
 	//calendar
-	//akashic
+	AkashicRecord eventlog.AkashicRecords
 	galaxy   spacetime.Galaxy
 	calendar int
 }

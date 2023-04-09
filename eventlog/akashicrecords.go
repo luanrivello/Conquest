@@ -6,18 +6,18 @@ import (
 )
 
 type AkashicRecords struct {
-	actions map[string]ActionLog
-	events  map[string]EventLog
+	actions map[string]actionLog
+	events  map[string]eventLog
 }
 
-type ActionLog struct {
+type actionLog struct {
 	actor    creatures.Creature
 	action   string
 	target   creatures.Creature
 	location spacetime.PlaceInterface
 }
 
-type EventLog struct {
+type eventLog struct {
 	event    string
 	location spacetime.PlaceInterface
 }
