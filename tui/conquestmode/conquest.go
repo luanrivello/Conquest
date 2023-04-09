@@ -1,9 +1,10 @@
 package conquestmode
 
 import (
+	"conquest/board"
+	"conquest/tui/colors"
+
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/luanrivello/conquest/board"
-	"github.com/luanrivello/conquest/tui/colors"
 )
 
 // * Get Model * //

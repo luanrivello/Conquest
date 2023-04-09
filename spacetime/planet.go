@@ -3,7 +3,7 @@ package spacetime
 import (
 	"strconv"
 
-	"github.com/luanrivello/conquest/dice"
+	"conquest/dice"
 )
 
 /*

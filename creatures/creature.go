@@ -3,8 +3,8 @@ package creatures
 import (
 	"math/rand"
 
-	"github.com/luanrivello/conquest/dice"
-	st "github.com/luanrivello/conquest/spacetime"
+	"conquest/dice"
+	st "conquest/spacetime"
 )
 
 /*

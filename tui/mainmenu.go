@@ -5,10 +5,11 @@ import (
 	"log"
 	"os"
 
+	"conquest/loop"
+	"conquest/tui/colors"
+	"conquest/tui/conquestmode"
+
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/luanrivello/conquest/loop"
-	"github.com/luanrivello/conquest/tui/colors"
-	"github.com/luanrivello/conquest/tui/conquestmode"
 )
 
 var defaultColor = colors.BLUE

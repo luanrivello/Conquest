@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/luanrivello/conquest/creatures"
-	"github.com/luanrivello/conquest/dice"
-	"github.com/luanrivello/conquest/spacetime"
-	"github.com/luanrivello/conquest/tui/colors"
+	"conquest/creatures"
+	"conquest/dice"
+	"conquest/spacetime"
+	"conquest/tui/colors"
 )
 
 func Gameloop() {

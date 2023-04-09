@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/luanrivello/conquest/tui/colors"
+	"conquest/tui/colors"
 )
 
 var defaultColor = colors.BLUE

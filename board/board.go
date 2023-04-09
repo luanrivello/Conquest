@@ -3,8 +3,8 @@ package board
 import (
 	"time"
 
-	"github.com/luanrivello/conquest/creatures"
-	"github.com/luanrivello/conquest/spacetime"
+	"conquest/creatures"
+	"conquest/spacetime"
 )
 
 type Board struct {

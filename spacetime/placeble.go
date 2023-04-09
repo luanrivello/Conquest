@@ -1,7 +1,7 @@
 package spacetime
 
 import (
-	"github.com/luanrivello/conquest/dice"
+	"conquest/dice"
 )
 
 /*

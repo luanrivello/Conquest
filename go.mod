@@ -1,4 +1,4 @@
-module github.com/luanrivello/conquest
+module conquest
 
 go 1.18
 

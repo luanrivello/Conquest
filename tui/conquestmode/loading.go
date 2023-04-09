@@ -3,8 +3,9 @@ package conquestmode
 import (
 	"time"
 
+	"conquest/board"
+
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/luanrivello/conquest/board"
 )
 
 // * Model * //

@@ -1,13 +1,13 @@
 package creatures
 
 import (
-	"github.com/luanrivello/conquest/creatures/mind/personality"
-	"github.com/luanrivello/conquest/dice"
+	"conquest/creatures/mind/personality"
+	"conquest/dice"
 )
 
 /*
 * SENTIENT CREATURE STRUCTURE
-*/
+ */
 type Sentient struct {
 	Creature
 

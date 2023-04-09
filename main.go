@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/luanrivello/conquest/tui"
+	"conquest/tui"
 )
 
 func main() {
