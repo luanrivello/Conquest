@@ -9,16 +9,17 @@ import (
 )
 
 type Board struct {
-	//calendar
 	AkashicRecord eventlog.AkashicRecords
-	galaxy   spacetime.Galaxy
-	calendar int
+	galaxy        spacetime.Galaxy
+	Calendar      int
 }
 
 // * Constructor * //
 func NewBoard() *Board {
 	return &Board{
-		galaxy: *spacetime.NewGalaxy(),
+		AkashicRecord: eventlog.AkashicRecords{},
+		galaxy:        *spacetime.NewGalaxy(),
+		Calendar:      0,
 	}
 }
 
@@ -37,6 +38,8 @@ func (b *Board) Run() {
 	//planet.Place(&adam)
 	//planet.Place(&eve)
 	planet.Place(&snake)
+	b.Calendar += 1
+	time.Sleep(2 * time.Second)
 
 	b.loop(adam.Creature, eve.Creature, snake)
 }
@@ -47,10 +50,10 @@ func (b *Board) loop(adam, eve, snake creatures.Creature) {
 		//eve.Move()
 		snake.Move()
 
-		b.calendar += 1
+		b.Calendar += 1
 		time.Sleep(2 * time.Second)
 
-		if b.calendar >= 1000 {
+		if b.Calendar >= 1000 {
 			break
 		}
 	}

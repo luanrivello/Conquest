@@ -70,8 +70,8 @@ func (creature *Creature) IsPlaced() bool {
 }
 
 func (creature *Creature) Move() {
-	x := dice.Roll(3) - 1
-	y := dice.Roll(3) - 1
+	x := dice.Roll(3) - 2
+	y := dice.Roll(3) - 2
 
 	if creature.IsPlaced() && creature.IsAlive() {
 		creature.GetPlace().Move(creature, x, y)

@@ -43,7 +43,7 @@ func (sentient Sentient) Rune() rune {
 	} else if sentient.sex == 'F' {
 		return 'F'
 	} else {
-		return '?'
+		return 'S'
 	}
 }
 

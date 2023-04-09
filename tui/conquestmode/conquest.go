@@ -3,6 +3,7 @@ package conquestmode
 import (
 	"conquest/board"
 	"conquest/tui/colors"
+	"strconv"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -66,7 +67,7 @@ func (m conquestModel) View() string {
 	planet := system.GetPlanet()
 	result := defaultColor
 	result += colors.BLUE + "✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦\n"
-	result += colors.YELLOW + "Date:   " + "0" + "\n"
+	result += colors.YELLOW + "Date:   " + strconv.Itoa(m.board.Calendar) + "\n"
 	result += colors.PURPLE + "System: " + system.GetName() + "\n"
 	result += colors.RED + "Sun:    " + sun.GetName() + "\n"
 	result += colors.GREEN + "Planet: " + planet.GetName() + "\n"
