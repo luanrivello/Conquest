@@ -93,7 +93,7 @@ func (creature *Creature) Rune() rune {
 		return 'X'
 	}
 
-	return '?'
+	return 'S'
 }
 
 /*

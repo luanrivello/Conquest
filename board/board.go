@@ -32,8 +32,8 @@ func (b *Board) GetGalaxy() spacetime.Galaxy {
 // * Gameloop * //
 func (b *Board) Run() {
 	planet := b.galaxy.GetSystem().GetPlanet()
-	adam := creatures.NewSentient("Adam", 'M')
-	eve := creatures.NewSentient("Eve", 'F')
+	adam := creatures.NewCreature("Adam", 'M')
+	eve := creatures.NewCreature("Eve", 'F')
 	snake := creatures.NewCreature("Snake", 'X')
 
 	//planet.Place(&adam)
@@ -42,7 +42,7 @@ func (b *Board) Run() {
 	b.Calendar += 1
 	time.Sleep(2 * time.Second)
 
-	b.loop(adam.Creature, eve.Creature, snake)
+	b.loop(adam, eve, snake)
 }
 
 func (b *Board) loop(adam, eve, snake creatures.Creature) {
@@ -56,7 +56,7 @@ func (b *Board) loop(adam, eve, snake creatures.Creature) {
 		b.Calendar += 1
 		time.Sleep(2 * time.Second)
 
-		if b.Calendar >= 1000 {
+		if b.Calendar >= 100 {
 			break
 		}
 	}

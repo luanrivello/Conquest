@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 
-	"conquest/loop"
 	"conquest/tui/colors"
 	"conquest/tui/conquestmode"
 
@@ -86,7 +85,7 @@ func (m mainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			//* Dev
 			case 3:
-				loop.Gameloop()
+				return conquestmode.GetCreationModel(m), nil
 
 			//* Exit
 			default:
