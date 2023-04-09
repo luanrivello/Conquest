@@ -10,6 +10,8 @@ import (
 	"conquest/tui/colors"
 )
 
+//! DEPECRATED
+
 func Gameloop() {
 	var spaceCalendar uint64 = 0
 	galaxy := spacetime.NewGalaxy()
@@ -20,8 +22,8 @@ func Gameloop() {
 	eve := creatures.NewSentient("Eve", 'F')
 	snake := creatures.NewCreature("Snake", 'X')
 
-	planet.Place(&adam)
-	planet.Place(&eve)
+	//planet.Place(&adam)
+	//planet.Place(&eve)
 	planet.Place(&snake)
 
 	for {

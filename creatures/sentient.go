@@ -26,13 +26,15 @@ func NewSentient(givenName string, birthSex byte) Sentient {
 /*
 * PLACEBLE INTERFACE
  */
-func (sentient *Sentient) Move() {
+func (sentient *Sentient) Move() (int, int) {
 	x := dice.Roll(3) - 1
 	y := dice.Roll(3) - 1
 
 	if sentient.IsPlaced() && sentient.IsAlive() {
 		sentient.GetPlace().Move(sentient, x, y)
 	}
+
+	return x, y
 }
 
 func (sentient Sentient) Rune() rune {

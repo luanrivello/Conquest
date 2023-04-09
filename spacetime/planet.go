@@ -224,10 +224,10 @@ func (planet *Planet) Place(thing PlaceInterface) {
 	thing.Placed(planet, &tile)
 }
 
-func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) {
+func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) *tile {
 
 	if relativeX == 0 && relativeY == 0 {
-		return
+		return thing.GetTile()
 	}
 
 	// Current Tile
@@ -253,6 +253,7 @@ func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) {
 	targetTile.add(thing)
 	thing.Placed(planet, targetTile)
 
+	return targetTile
 }
 
 func (planet *Planet) GetTiles() [][]tile {

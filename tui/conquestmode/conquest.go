@@ -115,6 +115,17 @@ func (m conquestModel) View() string {
 	result += colors.Reset
 
 	//* Footer
-	result += "\n|| footer || footer || footer || footer ||\n"
+	result += "---------------------------------------------------------------------------------\n"
+	result += colors.RED
+	log := m.board.AkashicRecord.Actions
+	limit := 0
+	for i := len(log) - 1; i >= 0; i-- {
+		if limit == 5 {
+			break
+		}
+		result += log[i].String() + "\n"
+		limit++
+	}
+
 	return result
 }

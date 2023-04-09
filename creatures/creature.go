@@ -69,13 +69,15 @@ func (creature *Creature) IsPlaced() bool {
 	return creature.Placeble.IsPlaced()
 }
 
-func (creature *Creature) Move() {
-	x := dice.Roll(3) - 2
-	y := dice.Roll(3) - 2
+func (creature *Creature) Move() (int, int) {
+	x := dice.Roll(3) - 1
+	y := dice.Roll(3) - 1
 
 	if creature.IsPlaced() && creature.IsAlive() {
 		creature.GetPlace().Move(creature, x, y)
 	}
+
+	return x, y
 }
 
 func (p *Creature) Exploded() {
