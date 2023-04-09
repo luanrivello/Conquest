@@ -7,9 +7,14 @@ import (
 )
 
 type AkashicRecords struct {
+	LogLines        []logInterface
 	Actions         []actionLog
 	actionsToTarget []actionToTargetLog
 	events          []eventLog
+}
+
+type logInterface interface {
+	String() string
 }
 
 func (records *AkashicRecords) AddAction(actor creatures.Creature, action string, location st.Planet, time int) {

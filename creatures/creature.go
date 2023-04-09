@@ -88,12 +88,16 @@ func (p *Creature) Exploded() {
 
 }
 
-func (creature *Creature) Rune() rune {
+func (creature Creature) Rune() rune {
 	if !creature.isAlive {
 		return 'X'
+	} else if creature.sex == 'M' {
+		return 'M'
+	} else if creature.sex == 'F' {
+		return 'F'
+	} else {
+		return 'S'
 	}
-
-	return 'S'
 }
 
 /*
