@@ -1,6 +1,7 @@
 package board
 
 import (
+	"fmt"
 	"time"
 
 	"conquest/creatures"
@@ -48,7 +49,9 @@ func (b *Board) loop(adam, eve, snake creatures.Creature) {
 	for {
 		//adam.Move()
 		//eve.Move()
-		snake.Move()
+		x, y := snake.Move()
+		action := fmt.Sprintf("moved %d %d", x, y)
+		b.AkashicRecord.AddAction(snake, action, *snake.GetPlace(), b.Calendar)
 
 		b.Calendar += 1
 		time.Sleep(2 * time.Second)
