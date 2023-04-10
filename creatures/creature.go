@@ -15,12 +15,20 @@ type Creature struct {
 	// longterm memory
 	// objectives memory
 	// maslow memory
-	// str int agi memory
 	name       string
 	age        int
 	sex        byte
 	isAlive    bool
+	happines   int
 	relashions []relashionship
+
+	//* Stats
+	Strength     int
+	Endurance    int
+	Dexterity    int
+	Wisdom       int
+	Intelligence int
+	Charisma     int
 
 	st.Placeble
 }
@@ -31,6 +39,7 @@ func NewCreature(givenName string, birthSex byte) Creature {
 		age:        0,
 		sex:        birthSex,
 		isAlive:    true,
+		happines:   50,
 		relashions: []relashionship{},
 	}
 }
