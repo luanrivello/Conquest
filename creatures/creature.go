@@ -2,6 +2,7 @@ package creatures
 
 import (
 	"math/rand"
+	"time"
 
 	"conquest/dice"
 	st "conquest/spacetime"
@@ -21,6 +22,7 @@ type Creature struct {
 	isAlive    bool
 	happines   int
 	relashions []relashionship
+	actions    []func(*Creature)
 
 	//* Stats
 	Strength     int
@@ -56,7 +58,7 @@ func Birth(name string) Creature {
 	return NewCreature(name, birthSex)
 }
 
-// add new relashionship with another sentient
+//* Add new relashionship with another sentient
 func (creature *Creature) AddRelashionship(other *Creature) {
 	creature.relashions = append(creature.relashions, newRelationship(other))
 }
@@ -65,6 +67,33 @@ func (creature Creature) String() string {
 	aux := string(creature.Rune()) + " " + creature.name + " " + string(creature.sex)
 
 	return aux
+}
+
+/*
+* Actions
+ */
+func (creature *Creature) TakeAction() {
+	//* Choose a random action from the list of possible actions.
+	rand.Seed(time.Now().UnixNano())
+	index := rand.Intn(len(creature.actions))
+	action := creature.actions[index]
+
+	//* Call the chosen action function with the current person as its argument.
+	action(creature)
+}
+
+//* Define some action functions.
+
+func Move(creature *Creature) {
+	x := dice.Roll(3) - 1
+	y := dice.Roll(3) - 1
+
+	if creature.IsPlaced() && creature.IsAlive() {
+		creature.GetPlace().Move(creature, x, y)
+	}
+}
+
+func Sleep(creature *Creature) {
 }
 
 /*
