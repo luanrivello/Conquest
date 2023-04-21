@@ -1,6 +1,7 @@
 package creatures
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 
@@ -22,7 +23,7 @@ type Creature struct {
 	isAlive    bool
 	happines   int
 	relashions []relashionship
-	actions    []func(*Creature)
+	actions    []func(*Creature) string
 
 	//* Stats
 	Strength     int
@@ -43,6 +44,10 @@ func NewCreature(givenName string, birthSex byte) Creature {
 		isAlive:    true,
 		happines:   50,
 		relashions: []relashionship{},
+		actions:	[]func(*Creature) string {
+			Move,
+			Sleep,
+		},
 	}
 }
 
@@ -58,7 +63,7 @@ func Birth(name string) Creature {
 	return NewCreature(name, birthSex)
 }
 
-//* Add new relashionship with another sentient
+// * Add new relashionship with another sentient
 func (creature *Creature) AddRelashionship(other *Creature) {
 	creature.relashions = append(creature.relashions, newRelationship(other))
 }
@@ -72,28 +77,30 @@ func (creature Creature) String() string {
 /*
 * Actions
  */
-func (creature *Creature) TakeAction() {
+func (creature *Creature) TakeAction() string {
 	//* Choose a random action from the list of possible actions.
 	rand.Seed(time.Now().UnixNano())
 	index := rand.Intn(len(creature.actions))
 	action := creature.actions[index]
 
 	//* Call the chosen action function with the current person as its argument.
-	action(creature)
+	return action(creature)
 }
 
 //* Define some action functions.
 
-func Move(creature *Creature) {
+func Move(creature *Creature) string {
 	x := dice.Roll(3) - 1
 	y := dice.Roll(3) - 1
 
 	if creature.IsPlaced() && creature.IsAlive() {
 		creature.GetPlace().Move(creature, x, y)
 	}
+	return fmt.Sprintf("moved %d %d", x, y)
 }
 
-func Sleep(creature *Creature) {
+func Sleep(creature *Creature) string {
+	return fmt.Sprintf(" fell asleep")
 }
 
 /*
