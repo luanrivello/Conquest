@@ -44,7 +44,7 @@ func NewCreature(givenName string, birthSex byte) Creature {
 		isAlive:    true,
 		happines:   50,
 		relashions: []relashionship{},
-		actions:	[]func(*Creature) string {
+		actions: []func(*Creature) string{
 			Move,
 			Sleep,
 		},
@@ -93,14 +93,14 @@ func Move(creature *Creature) string {
 	x := dice.Roll(3) - 1
 	y := dice.Roll(3) - 1
 
-	if creature.IsPlaced() && creature.IsAlive() {
-		creature.GetPlace().Move(creature, x, y)
-	}
-	return fmt.Sprintf("moved %d %d", x, y)
+	//if creature.IsPlaced() && creature.IsAlive() {
+	//}
+	direction := creature.GetPlace().Move(creature, x, y)
+	return fmt.Sprintf("moved %s", direction)
 }
 
 func Sleep(creature *Creature) string {
-	return fmt.Sprintf(" fell asleep")
+	return fmt.Sprintf("fell asleep")
 }
 
 /*

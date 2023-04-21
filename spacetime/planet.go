@@ -224,10 +224,11 @@ func (planet *Planet) Place(thing PlaceInterface) {
 	thing.Placed(planet, &tile)
 }
 
-func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) *tile {
+func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) string {
+	var direction string
 
 	if relativeX == 0 && relativeY == 0 {
-		return thing.GetTile()
+		return "nowhere"
 	}
 
 	// Current Tile
@@ -236,24 +237,28 @@ func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) *tile
 	//⇳
 	if relativeY == 1 {
 		targetTile = targetTile.up
+		direction = "up"
 
 	} else if relativeY == -1 {
 		targetTile = targetTile.down
+		direction = "down"
 	}
 
 	//⬄
 	if relativeX == 1 {
 		targetTile = targetTile.right
+		direction += "right"
 
 	} else if relativeX == -1 {
 		targetTile = targetTile.left
+		direction += "left"
 	}
 
 	thing.GetTile().remove(thing)
 	targetTile.add(thing)
 	thing.Placed(planet, targetTile)
 
-	return targetTile
+	return direction
 }
 
 func (planet *Planet) GetTiles() [][]tile {
