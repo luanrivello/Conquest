@@ -104,8 +104,8 @@ func (m conquestModel) View() string {
 			//	aux += " "
 			//}
 
-			aux += colors.Reset
 			aux += "]"
+			aux += colors.Reset
 			result += aux
 		}
 		result += "\n"
