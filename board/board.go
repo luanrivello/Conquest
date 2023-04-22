@@ -40,7 +40,7 @@ func (b *Board) Run() {
 	planet.Place(&snake)
 
 	b.Calendar += 1
-	time.Sleep(2 * time.Second)
+	time.Sleep(4 * time.Second)
 
 	b.loop(&adam, &eve, &snake)
 }
@@ -53,7 +53,7 @@ func (b *Board) loop(creatures ...*creatures.Creature) {
 		}
 
 		b.Calendar += 1
-		time.Sleep(2 * time.Second)
+		time.Sleep(4 * time.Second)
 
 		if b.Calendar >= 100 {
 			break
