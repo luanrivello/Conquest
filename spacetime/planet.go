@@ -219,9 +219,9 @@ func (planet *Planet) Place(thing PlaceInterface) {
 	x := dice.Roll(5)
 	y := dice.Roll(5)
 
-	tile := planet.tiles[x][y]
+	tile := &planet.tiles[x][y]
 	tile.add(thing)
-	thing.Placed(planet, &tile)
+	thing.Placed(planet, tile)
 }
 
 func (planet *Planet) Move(thing PlaceInterface, relativeX, relativeY int) string {
