@@ -77,17 +77,25 @@ func (creature Creature) String() string {
 * Actions
  */
 func (creature *Creature) TakeAction() string {
+	var lenght int = len(creature.actions)
+	if lenght == 0 {
+		return "Cant do nothing"
+	}
+
 	//* Choose a random action from the list of possible actions.
 	rand.Seed(time.Now().UnixNano())
-	index := rand.Intn(len(creature.actions))
+	index := rand.Intn(lenght)
 	action := creature.actions[index]
 
 	//* Call the chosen action function with the current person as its argument.
 	return action(creature)
 }
 
-//* Define some action functions.
+func (creature *Creature) AddAction(action func(*Creature) string) {
+	creature.actions = append(creature.actions, action)
+}
 
+// * Define action functions
 func Move(creature *Creature) string {
 	x := dice.Roll(3) - 1
 	y := dice.Roll(3) - 1
@@ -97,7 +105,7 @@ func Move(creature *Creature) string {
 }
 
 func Sleep(creature *Creature) string {
-	return fmt.Sprintf("fell asleep")
+	return "fell asleep"
 }
 
 /*
@@ -109,17 +117,6 @@ func (creature *Creature) IsAlive() bool {
 
 func (creature *Creature) IsPlaced() bool {
 	return creature.Placeble.IsPlaced()
-}
-
-func (creature *Creature) Move() (int, int) {
-	x := dice.Roll(3) - 1
-	y := dice.Roll(3) - 1
-
-	if creature.IsPlaced() && creature.IsAlive() {
-		creature.GetPlace().Move(creature, x, y)
-	}
-
-	return x, y
 }
 
 func (p *Creature) Exploded() {

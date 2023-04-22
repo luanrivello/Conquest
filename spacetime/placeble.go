@@ -2,6 +2,7 @@ package spacetime
 
 import (
 	"conquest/dice"
+	"fmt"
 )
 
 /*
@@ -23,7 +24,7 @@ type PlaceInterface interface {
 	IsPlaced() bool
 	GetPlace() *Planet
 	GetTile() *tile
-	Move() (int, int)
+	Move() string
 	Rune() rune
 	Exploded()
 }
@@ -47,15 +48,12 @@ func (placeble *Placeble) Placed(planet *Planet, tile *tile) {
 	placeble.tile = tile
 }
 
-func (placeble *Placeble) Move() (int, int) {
+func (placeble *Placeble) Move() string {
 	x := dice.Roll(3) - 1
 	y := dice.Roll(3) - 1
 
-	if placeble.IsPlaced() && placeble.IsAlive() {
-		placeble.GetPlace().Move(placeble, x, y)
-	}
-
-	return x, y
+	direction := placeble.GetPlace().Move(placeble, x, y)
+	return fmt.Sprintf("moved %s", direction)
 }
 
 func (placeble *Placeble) IsAlive() bool     { return true }
