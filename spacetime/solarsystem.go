@@ -12,7 +12,7 @@ type SolarSystem struct {
 // CONSTRUCTOR
 func NewSolarSystem() *SolarSystem {
 	bornsun := NewSun()
-	bornplanet := NewPlanet(16)
+	bornplanet := NewPlanet(24)
 
 	return &SolarSystem{name: "Origin", sun: bornsun, planet: bornplanet}
 }
