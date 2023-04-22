@@ -35,23 +35,22 @@ func (b *Board) Run() {
 	eve := creatures.NewCreature("Eve", 'F')
 	snake := creatures.NewCreature("Snake", 'X')
 
-	//planet.Place(&adam)
-	//planet.Place(&eve)
+	planet.Place(&adam)
+	planet.Place(&eve)
 	planet.Place(&snake)
+
 	b.Calendar += 1
 	time.Sleep(2 * time.Second)
 
-	b.loop(adam, eve, snake)
+	b.loop(&adam, &eve, &snake)
 }
 
-func (b *Board) loop(adam, eve, snake creatures.Creature) {
+func (b *Board) loop(creatures ...*creatures.Creature) {
 	for {
-		//adam.Move()
-		//eve.Move()
-		action := snake.TakeAction()
-		//x, y := snake.Move()
-		//action := fmt.Sprintf("moved %d %d", x, y)
-		b.AkashicRecord.AddAction(snake, action, *snake.GetPlace(), b.Calendar)
+		for i := range creatures {
+			action := creatures[i].TakeAction()
+			b.AkashicRecord.AddAction(creatures[i], action, creatures[i].GetPlace(), b.Calendar)
+		}
 
 		b.Calendar += 1
 		time.Sleep(2 * time.Second)
