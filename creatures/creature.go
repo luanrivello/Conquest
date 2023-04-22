@@ -13,10 +13,10 @@ import (
 * CREATURE STRUCTURE
  */
 type Creature struct {
-	// shorterm memory
-	// longterm memory
-	// objectives memory
-	// maslow memory
+	//TODO shorterm memory
+	//TODO longterm memory
+	//TODO objectives memory
+	//TODO maslow memory
 	name       string
 	age        int
 	sex        byte
@@ -46,7 +46,6 @@ func NewCreature(givenName string, birthSex byte) Creature {
 		relashions: []relashionship{},
 		actions: []func(*Creature) string{
 			Move,
-			Sleep,
 		},
 	}
 }
@@ -69,7 +68,7 @@ func (creature *Creature) AddRelashionship(other *Creature) {
 }
 
 func (creature Creature) String() string {
-	aux := string(creature.Rune()) + " " + creature.name + " " + string(creature.sex)
+	aux := string(" " + creature.name + " " + string(creature.sex))
 
 	return aux
 }
@@ -93,8 +92,6 @@ func Move(creature *Creature) string {
 	x := dice.Roll(3) - 1
 	y := dice.Roll(3) - 1
 
-	//if creature.IsPlaced() && creature.IsAlive() {
-	//}
 	direction := creature.GetPlace().Move(creature, x, y)
 	return fmt.Sprintf("moved %s", direction)
 }
